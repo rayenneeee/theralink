@@ -1,1 +1,2 @@
-declare module "qrcode";
+// @ts-ignore
+import QRCode from "qrcode";

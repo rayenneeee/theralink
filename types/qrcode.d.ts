@@ -1,3 +1,4 @@
-// @ts-ignore
-
-declare module "qrcode";
+declare module "qrcode" {
+  const QRCode: any;
+  export default QRCode;
+}

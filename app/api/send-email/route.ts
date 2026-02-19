@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
-import QRCode from "qrcode";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -10,9 +9,11 @@ export async function POST(req: Request) {
 
     const safeName = professionalName || "votre professionnel";
 
-    // 🔥 Générer QR code
+    // ✅ Import dynamique (évite l'erreur TypeScript)
+    const QRCode = await import("qrcode");
+
     const qrData = `Rendez-vous avec ${safeName} le ${date} à ${time}`;
-    const qrCodeImage = await QRCode.toDataURL(qrData);
+    const qrCodeImage = await QRCode.default.toDataURL(qrData);
 
     const { error } = await resend.emails.send({
       from: "TheraLink <onboarding@resend.dev>",
